@@ -325,6 +325,30 @@ if [ "${PRESET_FLUX_2_KLEIN_9B:-false}" != "false" ]; then
 fi
 
 # ---------------------------------------------------------------------------
+# PRESET: TEST
+# ---------------------------------------------------------------------------
+if [ "${PRESET_TEST:-false}" != "false" ]; then
+  echo "Preparing TEST Preset..."
+
+  # Text Encoders (CLIP)
+  hf_get "Comfy-Org/z_image_turbo" "split_files/text_encoders/qwen_3_4b.safetensors" "/workspace/ComfyUI/models/clip/qwen_3_4b.safetensors"
+  hf_get "Comfy-Org/Wan_2.2_ComfyUI_Repackaged" "split_files/text_encoders/umt5_xxl_fp16.safetensors" "/workspace/ComfyUI/models/clip/umt5_xxl_fp16.safetensors"
+
+  # VAEs
+  hf_get "Comfy-Org/z_image_turbo" "split_files/vae/ae.safetensors" "/workspace/ComfyUI/models/vae/ae.safetensors"
+  hf_get "Comfy-Org/Wan_2.2_ComfyUI_Repackaged" "split_files/vae/wan_2.1_vae.safetensors" "/workspace/ComfyUI/models/vae/wan_2.1_vae.safetensors"
+
+  # Diffusion Models & UNETs
+  hf_get "Comfy-Org/z_image_turbo" "split_files/diffusion_models/z_image_turbo_bf16.safetensors" "/workspace/ComfyUI/models/diffusion_models/z_image_turbo_bf16.safetensors"
+  hf_get "QuantStack/Wan2.2-T2V-A14B-GGUF" "LowNoise/Wan2.2-T2V-A14B-LowNoise-Q8_0.gguf" "/workspace/ComfyUI/models/diffusion_models/Wan2.2-T2V-A14B-LowNoise-Q8_0.gguf"
+
+  # LoRAs
+  hf_get "Comfy-Org/Wan_2.2_ComfyUI_Repackaged" "split_files/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors" "/workspace/ComfyUI/models/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors"
+
+  echo "TEST Preset: Complete."
+fi
+
+# ---------------------------------------------------------------------------
 # RUNTIME ENV FIXES
 # ---------------------------------------------------------------------------
 # Force timm back to 0.9.16 to fix LayerStyle_Advance
