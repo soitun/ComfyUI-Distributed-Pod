@@ -54,6 +54,17 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# UPDATE MANAGER CONFIG
+# ---------------------------------------------------------------------------
+MANAGER_CONFIG="$COMFYUI_DIR/user/__manager/config.ini"
+if [ -f "$MANAGER_CONFIG" ]; then
+  sed -i 's/^network_mode\s*=.*/network_mode = personal_cloud/' "$MANAGER_CONFIG"
+  echo "ComfyUI-Manager config.ini network_mode updated to personal_cloud."
+else
+  echo "WARNING: $MANAGER_CONFIG not found."
+fi
+
+# ---------------------------------------------------------------------------
 # REPO UPDATES & INSTALLS
 # ---------------------------------------------------------------------------
 
