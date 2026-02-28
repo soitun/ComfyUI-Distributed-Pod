@@ -56,13 +56,26 @@ fi
 # ---------------------------------------------------------------------------
 # UPDATE MANAGER CONFIG
 # ---------------------------------------------------------------------------
-MANAGER_CONFIG="$COMFYUI_DIR/user/__manager/config.ini"
-if [ -f "$MANAGER_CONFIG" ]; then
-  sed -i 's/^network_mode\s*=.*/network_mode = personal_cloud/' "$MANAGER_CONFIG"
-  echo "ComfyUI-Manager config.ini network_mode updated to personal_cloud."
-else
-  echo "WARNING: $MANAGER_CONFIG not found."
-fi
+MANAGER_CONFIG_DIR="$COMFYUI_DIR/user/__manager"
+mkdir -p "$MANAGER_CONFIG_DIR"
+cat <<EOF > "$MANAGER_CONFIG_DIR/config.ini"
+[default]
+git_exe = 
+use_uv = True
+channel_url = https://raw.githubusercontent.com/Comfy-Org/ComfyUI-Manager/main
+share_option = all
+bypass_ssl = False
+file_logging = True
+update_policy = stable-comfyui
+windows_selector_event_loop_policy = False
+model_download_by_agent = False
+downgrade_blacklist = 
+security_level = normal
+always_lazy_install = False
+network_mode = personal_cloud
+db_mode =
+EOF
+echo "ComfyUI-Manager config.ini updated successfully."
 
 # ---------------------------------------------------------------------------
 # REPO UPDATES & INSTALLS
