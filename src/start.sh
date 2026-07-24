@@ -54,30 +54,6 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# UPDATE MANAGER CONFIG
-# ---------------------------------------------------------------------------
-MANAGER_CONFIG_DIR="$COMFYUI_DIR/user/__manager"
-mkdir -p "$MANAGER_CONFIG_DIR"
-cat <<EOF > "$MANAGER_CONFIG_DIR/config.ini"
-[default]
-git_exe = 
-use_uv = True
-channel_url = https://raw.githubusercontent.com/Comfy-Org/ComfyUI-Manager/main
-share_option = all
-bypass_ssl = False
-file_logging = True
-update_policy = stable-comfyui
-windows_selector_event_loop_policy = False
-model_download_by_agent = False
-downgrade_blacklist = 
-security_level = normal
-always_lazy_install = False
-network_mode = personal_cloud
-db_mode =
-EOF
-echo "ComfyUI-Manager config.ini updated successfully."
-
-# ---------------------------------------------------------------------------
 # REPO UPDATES & INSTALLS
 # ---------------------------------------------------------------------------
 
@@ -388,7 +364,7 @@ LOG_FILE="/comfyui_${RUNPOD_POD_ID:-local}.log"
 
 if ! pgrep -f "main.py --listen" > /dev/null; then
   echo "Launching ComfyUI"
-  ARGS="--listen --enable-cors-header --preview-method auto --enable-manager --enable-manager-legacy-ui"
+  ARGS="--listen --enable-cors-header --preview-method auto --enable-manager"
   nohup python3 "$COMFYUI_DIR/main.py" $ARGS > "$LOG_FILE" 2>&1 &
 fi
 
