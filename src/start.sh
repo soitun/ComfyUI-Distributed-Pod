@@ -388,7 +388,7 @@ LOG_FILE="/comfyui_${RUNPOD_POD_ID:-local}.log"
 
 if ! pgrep -f "main.py --listen" > /dev/null; then
   echo "Launching ComfyUI"
-  ARGS="--listen --enable-cors-header --preview-method auto --enable-manager"
+  ARGS="--listen --enable-cors-header --preview-method auto --enable-manager --enable-manager-legacy-ui"
   nohup python3 "$COMFYUI_DIR/main.py" $ARGS > "$LOG_FILE" 2>&1 &
 fi
 
